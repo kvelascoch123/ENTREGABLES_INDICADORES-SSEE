@@ -1,0 +1,70 @@
+// ******************* URL DOCUMENTACION ************************
+http://sidesoft.com.ec/app_indicadores/documentacion/index.html#alexa
+
+// ******************* URL WEB ********************************
+//________________________VERSION 2________________________
+INDICADOR MES AÑO => 4 params (indicador , mes , año, TOKEN)
+
+http://www.sidesoft.com.ec/app_indicadores/indicadorMY/liquidez%20corriente/enero/2019/fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj
+
+INDICADOR AÑO => 3 params (indicador , año, TOKEN)
+http://www.sidesoft.com.ec/app_indicadores/indicadorY/liquidez%20corriente/2019/fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj
+
+//________________________VERSION 1________________________
+INDICADOR MES AÑO => 3 params (indicador , mes ,año)
+http://www.sidesoft.com.ec/app_indicadores/indicadorMYv1/liquidez%20corriente/agosto/2019
+
+INDICADOR AÑO => 2 params (indicador ,año)
+http://www.sidesoft.com.ec/app_indicadores/indicadorYv1/liquidez%20corriente/2019
+
+// ****************** URL API  *****************************
+
+Login => 2 parmas (nombreUser, contraseña)
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/kevin/abcd
+
+UserGet => 1 param (nombreUser)
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/kevin
+
+** INDICADORES Respuestas de Alexa
+
+AreasGet => 0 params
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/areas
+
+AreaGet => 1 param (nombreArea)
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/area/area%20financiera
+
+IndicadoresGet => 1 param (nombreFactor)
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/indicadores/Liquidez
+
+** Monthly Respuestas Alexa
+
+MonthlyByYear => 2 params (anio, indicador)
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/2019/liquidez%20corriente
+
+MonthlyByMonth => 3 params(mes, anio, indicador)
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/enero/2019/liquidez%20corriente
+
+
+// **** TOKEN *******
+
+InsertDataToken => 4 params(indicador, mes, anio, tokenEncrypt)
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenInsert/liquidez%20corriente/enero/2019/fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj
+
+UpdateTokenUser App => POST 
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenUpdate
+
+{
+    "status": 1,
+    "data": "Token Modificado"
+}
+
+ValidarTokenDB
+http://www.sidesoft.com.ec/app_indicadores/api/alexa/validateTokenUser/fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj/1
+
+
+
+
+
+
+
+

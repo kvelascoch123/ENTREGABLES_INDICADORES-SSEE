@@ -1,0 +1,2181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/all.js"></script>
+
+
+          <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+      </script>
+      </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        <img src="images/logo.png" />
+                    <div class="lang-selector">
+                                  <a href="#" data-language-name="bash">bash</a>
+                                  <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+                            <div class="search">
+              <input type="text" class="search" id="input-search" placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+              <div id="toc">
+      </div>
+                    <ul class="toc-footer">
+                                  <li><a href='http://github.com/mpociot/documentarian'>Documentation Powered by SideSoft</a></li>
+                            </ul>
+            </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+          <!-- START_INFO -->
+<h1>ALEXA - Indicadores</h1>
+<p>API de ALEXA en Laravel.
+<!-- <a href="http://www.sidesoft.com.ec/app_indicadores/docs/collection.json">Get Postman Collection</a></p>-->
+<!-- END_INFO -->
+<h1>APIs Alexa</h1>
+<!-- START_86fc8006ecce93479f27eed48f6131e1 -->
+<h2>Autenticación del usuario.</h2>
+<p>Validación del usuario registrado. Table: al_user</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/1/1?alias_name=kevin&amp;user_password=abcd" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreUsuario":"kevin","contrase\u00f1a":"abcd"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/1/1");
+
+    let params = {
+            "alias_name": "kevin",
+            "user_password": "abcd",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreUsuario": "kevin",
+    "contrase\u00f1a": "abcd"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "alias_name" =&gt; "kevin",
+            "user_password" =&gt; "abcd",
+        ],
+    'json' =&gt; [
+            "nombreUsuario" =&gt; "kevin",
+            "contraseña" =&gt; "abcd",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "id_user": "2",
+        "email": "kav.chuga@yavirac.edu.ec",
+        "name": "Kevin"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "Usuario no encontrado"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/user/{nombre}/{contrasena}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreUsuario</td>
+<td>string</td>
+<td>optional</td>
+<td>requireddel usuario.</td>
+</tr>
+<tr>
+<td>contraseña</td>
+<td>string</td>
+<td>required</td>
+<td>Contraseña del usuario'.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alias_name</td>
+<td>required</td>
+<td>Nombre del usuario.</td>
+</tr>
+<tr>
+<td>user_password</td>
+<td>required</td>
+<td>Contraseña del usuario.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_86fc8006ecce93479f27eed48f6131e1 -->
+<!-- START_977e907b88276390119e1fa42a06bbb2 -->
+<h2>Reconocimiento del usuario.</h2>
+<p>Solicitud del nombre del usuario, bienvenida. Table: al_user</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/1?alias_name=kevin" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreUsuario":"kevin"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/1");
+
+    let params = {
+            "alias_name": "kevin",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreUsuario": "kevin"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/user/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "alias_name" =&gt; "kevin",
+        ],
+    'json' =&gt; [
+            "nombreUsuario" =&gt; "kevin",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "mensaje": "Usuario encontrado"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "Usuario no encontrado"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/user/{nombre}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreUsuario</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del usuario.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alias_name</td>
+<td>required</td>
+<td>Nombre del usuario.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_977e907b88276390119e1fa42a06bbb2 -->
+<!-- START_434fbc0237e6bb50c5db08f2228b8564 -->
+<h2>Áreas.</h2>
+<p>Todas las áreas registradas.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/areas?ninguno=unde" \
+    -H "Content-Type: application/json" \
+    -d '{"ninguno":"rem"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/areas");
+
+    let params = {
+            "ninguno": "unde",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "ninguno": "rem"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/areas", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "ninguno" =&gt; "unde",
+        ],
+    'json' =&gt; [
+            "ninguno" =&gt; "rem",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "areas": [
+            "Financiera",
+            "Comercial",
+            "Contable"
+        ]
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/areas</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ninguno</td>
+<td>ninguno</td>
+<td>optional</td>
+<td>optional Ninguno.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ninguno</td>
+<td>optional</td>
+<td>optional Ningun parametro.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_434fbc0237e6bb50c5db08f2228b8564 -->
+<!-- START_3f8be4723214005fb4a3d877c4457b31 -->
+<h2>Factor.</h2>
+<p>Todos los factors registrados mediante el área. Table: al_factor inner al_area</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/area/1?description=area+financiera" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreArea":"area financiera"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/area/1");
+
+    let params = {
+            "description": "area financiera",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreArea": "area financiera"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/area/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "description" =&gt; "area financiera",
+        ],
+    'json' =&gt; [
+            "nombreArea" =&gt; "area financiera",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "factoresPorArea": [
+            "Liquidez",
+            "Solvencia",
+            "Gestion",
+            "Rentabilidad"
+        ]
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "Factores segun el area no encontradas"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/area/{description}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreArea</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del area.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>description</td>
+<td>required</td>
+<td>Descripción del área .</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3f8be4723214005fb4a3d877c4457b31 -->
+<!-- START_9cd2d091485eebceaa2e1f418103ca02 -->
+<h2>Indicadores.</h2>
+<p>Todos los indicadores registrados según el factor. Table: al_indicators inner al_factor</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/indicadores/1?factor=liquidez" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreFactor":"liquidez"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/indicadores/1");
+
+    let params = {
+            "factor": "liquidez",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreFactor": "liquidez"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/indicadores/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "factor" =&gt; "liquidez",
+        ],
+    'json' =&gt; [
+            "nombreFactor" =&gt; "liquidez",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "factor": "Liquidez",
+        "indicadores": [
+            "liquidez corriente",
+            "prueba acida"
+        ]
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "Indicadore segun factor no encontrado"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/indicadores/{nombreFactor}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreFactor</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del factor.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>factor</td>
+<td>required</td>
+<td>Nombre del factor.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_9cd2d091485eebceaa2e1f418103ca02 -->
+<!-- START_b39d0b86a8d7500c0eb74c29adcd7873 -->
+<h2>Monto Actual Año.</h2>
+<p>Cálculo del monto actual respecto al Año. Table: al_indicators_years</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/1/1?name=liquidez+corriente&amp;year=2019" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreIndicador":"liquidez corriente","a\u00f1o":"2019"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/1/1");
+
+    let params = {
+            "name": "liquidez corriente",
+            "year": "2019",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreIndicador": "liquidez corriente",
+    "a\u00f1o": "2019"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "name" =&gt; "liquidez corriente",
+            "year" =&gt; "2019",
+        ],
+    'json' =&gt; [
+            "nombreIndicador" =&gt; "liquidez corriente",
+            "año" =&gt; "2019",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "indicator": "liquidez corriente",
+        "monthly": [
+            {
+                "sumaActual": "1.46",
+                "sumaAnterior": "1.37"
+            }
+        ],
+        "resta": 0.09,
+        "variacion": 6.57,
+        "definicion": "es de 1.46, versus el año  anterior, que fue de 1.37 . La variacion es de 0.09, correspondiente al 6.57 %"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "No monthly"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/monthly/{anio}/{nombreIndicador}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreIndicador</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>año</td>
+<td>string</td>
+<td>required</td>
+<td>Año de busqueda .</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>year</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_b39d0b86a8d7500c0eb74c29adcd7873 -->
+<!-- START_0b2cf3cf67c78c39737600956e6f8fd4 -->
+<h2>Monto Actual Mes.</h2>
+<p>Cálculo del monto actual respecto al Mes. Table: al_indicators_years</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/1/1/1?month=enero&amp;name=liquidez+corriente&amp;year=2019" \
+    -H "Content-Type: application/json" \
+    -d '{"mes":"enero","nombreIndicador":"liquidez corriente","a\u00f1o":2019}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/1/1/1");
+
+    let params = {
+            "month": "enero",
+            "name": "liquidez corriente",
+            "year": "2019",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "mes": "enero",
+    "nombreIndicador": "liquidez corriente",
+    "a\u00f1o": 2019
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/monthly/1/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "month" =&gt; "enero",
+            "name" =&gt; "liquidez corriente",
+            "year" =&gt; "2019",
+        ],
+    'json' =&gt; [
+            "mes" =&gt; "enero",
+            "nombreIndicador" =&gt; "liquidez corriente",
+            "año" =&gt; "2019",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "indicator": "rotacion de cartera",
+        "monthly": [
+            {
+                "last_month": "20.05",
+                "current_month": "25.01",
+                "variation_between_months": "5.10",
+                "criterial": "N",
+                "description": "gestion"
+            }
+        ],
+        "resta": 4.96,
+        "variacion": "5.10",
+        "definicion": "es de 25.01, versus el mes anterior, que fue de 20.05 . La variacion es de 4.96, correspondiente al 5.10 %"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "No monthly"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/monthly/{mes}/{anio}/{nombreIndicador}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mes</td>
+<td>string</td>
+<td>required</td>
+<td>Mes de busqueda.</td>
+</tr>
+<tr>
+<td>nombreIndicador</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>año</td>
+<td>integer</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>required</td>
+<td>Mes de busqueda.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>year</td>
+<td>required</td>
+<td>Año registrado.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_0b2cf3cf67c78c39737600956e6f8fd4 -->
+<!-- START_647de820ee7a5b00d45d3a5c1d1a6e90 -->
+<h2>Token Insert.</h2>
+<p>Insertar token.
+Guardar el token , usuario, indicador consultado en la tabla al_token_user.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenInsert/1/1/1/1?nombre_indicador=liquidez+corriente&amp;month=agosto&amp;year=2019&amp;token=omnis" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreIndicador":"liquidez corriente","mes":"liquidez corriente","a\u00f1o":2019,"token":"fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenInsert/1/1/1/1");
+
+    let params = {
+            "nombre_indicador": "liquidez corriente",
+            "month": "agosto",
+            "year": "2019",
+            "token": "omnis",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreIndicador": "liquidez corriente",
+    "mes": "liquidez corriente",
+    "a\u00f1o": 2019,
+    "token": "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenInsert/1/1/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "nombre_indicador" =&gt; "liquidez corriente",
+            "month" =&gt; "agosto",
+            "year" =&gt; "2019",
+            "token" =&gt; "omnis",
+        ],
+    'json' =&gt; [
+            "nombreIndicador" =&gt; "liquidez corriente",
+            "mes" =&gt; "liquidez corriente",
+            "año" =&gt; "2019",
+            "token" =&gt; "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/tokenInsert/{indicador}/{mes}/{anio}/{tokenEncrpt}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreIndicador</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>mes</td>
+<td>string</td>
+<td>required</td>
+<td>Mes de busqueda.</td>
+</tr>
+<tr>
+<td>año</td>
+<td>integer</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>required</td>
+<td>Token encrypt.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombre_indicador</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>month</td>
+<td>required</td>
+<td>Mes de busqueda.</td>
+</tr>
+<tr>
+<td>year</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+<tr>
+<td>token</td>
+<td>required</td>
+<td>Token encrypt.Example: fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj</td>
+</tr>
+</tbody>
+</table>
+<!-- END_647de820ee7a5b00d45d3a5c1d1a6e90 -->
+<!-- START_8c1fc07f8977ce5bdd2660544db9d37f -->
+<h2>Validacion Usuario Token Web.</h2>
+<p>Desencriptar el toquen verificar segun el usuario, determinar el limite de visualización de la página web.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/validateTokenUser/1/1?token=quisquam" \
+    -H "Content-Type: application/json" \
+    -d '{"token":"maxime"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/validateTokenUser/1/1");
+
+    let params = {
+            "token": "quisquam",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "token": "maxime"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/validateTokenUser/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "token" =&gt; "quisquam",
+        ],
+    'json' =&gt; [
+            "token" =&gt; "maxime",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "No existe el token asignado"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/validateTokenUser/{token}/{idUser}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>required</td>
+<td>Token encrypt.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>required</td>
+<td>Token encrypt.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_8c1fc07f8977ce5bdd2660544db9d37f -->
+<!-- START_4810a67f708e8eb514515bfb7c3eb00e -->
+<h2>Configuración.</h2>
+<p>Configuración del usuario y organización.
+Utilidad: Determinar la organización del usuario.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/configuration/1?id_org=1" \
+    -H "Content-Type: application/json" \
+    -d '{"Id_Organizaci\u00f3n":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/configuration/1");
+
+    let params = {
+            "id_org": "1",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "Id_Organizaci\u00f3n": "1"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/configuration/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "id_org" =&gt; "1",
+        ],
+    'json' =&gt; [
+            "Id_Organización" =&gt; "1",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "id_al_configuration": "1",
+        "value": "100.00",
+        "isactive": "y",
+        "description": "configuracion de Sidesoft",
+        "created": "2019-09-02 16:18:13",
+        "created_by": "100",
+        "updated": "2019-09-02 16:18:27",
+        "updated_by": "100",
+        "name": "Sidesoft",
+        "al_org_id": "1",
+        "url_api": "http:\/\/www.sidesoft.com.ec",
+        "url_project": "app_indicadores",
+        "url_endpoint": "api\/alexa",
+        "mail": "2",
+        "smt_port": "3380",
+        "token_p1": "0123456789abcdef0123456789abcdef",
+        "token_p2": "abcdef9876543210abcdef9876543210"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/configuration/{id_org}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id_Organización</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id_org</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_4810a67f708e8eb514515bfb7c3eb00e -->
+<!-- START_67f8389c76319117722e49d50fb34a03 -->
+<h2>Comparación.</h2>
+<p>Comparación del indicador.
+Utilidad: Txt_affirmative, respuesta de alexa.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/api/alexa/comparation/1?indicador=liquidez+corriente" \
+    -H "Content-Type: application/json" \
+    -d '{"indicador":"liquidez corriente"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/comparation/1");
+
+    let params = {
+            "indicador": "liquidez corriente",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "indicador": "liquidez corriente"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/api/alexa/comparation/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "indicador" =&gt; "liquidez corriente",
+        ],
+    'json' =&gt; [
+            "indicador" =&gt; "liquidez corriente",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 1,
+    "data": {
+        "indicator": "rotacion de cartera",
+        "txt_affirmative": "El resultado significa que la empresa en promedio tarda 25 dias en recuperar su cartera, en otras palabras su cartera se convierte en efectivo en menos de un mes."
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "status": 0,
+    "mensaje": "No comparation"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/alexa/comparation/{nombreIndicador}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>indicador</td>
+<td>string</td>
+<td>required</td>
+<td>Ninguno.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>indicador</td>
+<td>required</td>
+<td>Ningun parametro.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_67f8389c76319117722e49d50fb34a03 -->
+<h1>APIs Web</h1>
+<!-- START_f245be16f54f8d01fc355fddef8a19ae -->
+<h2>Indicador respecto al mes V1.</h2>
+<p>Versión 1, permite ver la pagina sin cumplir la validación del token ni tiempo límite de visualización.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/indicadorMYv1/1/1/1?name=dolorem&amp;month=possimus&amp;year=sequi" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreIndicador":"omnis","mes":"magni","a\u00f1o":15}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/indicadorMYv1/1/1/1");
+
+    let params = {
+            "name": "dolorem",
+            "month": "possimus",
+            "year": "sequi",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreIndicador": "omnis",
+    "mes": "magni",
+    "a\u00f1o": 15
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/indicadorMYv1/1/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "name" =&gt; "dolorem",
+            "month" =&gt; "possimus",
+            "year" =&gt; "sequi",
+        ],
+    'json' =&gt; [
+            "nombreIndicador" =&gt; "omnis",
+            "mes" =&gt; "magni",
+            "año" =&gt; "15",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET indicadorMYv1/{nombre}/{mes}/{anio}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreIndicador</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>mes</td>
+<td>string</td>
+<td>required</td>
+<td>Mes de busqueda.</td>
+</tr>
+<tr>
+<td>año</td>
+<td>integer</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>month</td>
+<td>required</td>
+<td>Mes de busqueda respecto al indicador.</td>
+</tr>
+<tr>
+<td>year</td>
+<td>required</td>
+<td>Año de busqueda respecto al indicador.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_f245be16f54f8d01fc355fddef8a19ae -->
+<!-- START_2a2ade87b5d7c5bda68ab6f49a5aa5fc -->
+<h2>Indicador respecto al año V1.</h2>
+<p>Versión 1, permite ver la pagina sin cumplir la validación del token ni tiempo límite de visualización.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/indicadorYv1/1/1?name=voluptates&amp;year=nulla" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreIndicador":"adipisci","a\u00f1o":3}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/indicadorYv1/1/1");
+
+    let params = {
+            "name": "voluptates",
+            "year": "nulla",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreIndicador": "adipisci",
+    "a\u00f1o": 3
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/indicadorYv1/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "name" =&gt; "voluptates",
+            "year" =&gt; "nulla",
+        ],
+    'json' =&gt; [
+            "nombreIndicador" =&gt; "adipisci",
+            "año" =&gt; "3",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET indicadorYv1/{nombre}/{anio}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreIndicador</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>año</td>
+<td>integer</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>year</td>
+<td>required</td>
+<td>Año de busqueda respecto al indicador.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_2a2ade87b5d7c5bda68ab6f49a5aa5fc -->
+<!-- START_5ae08a65ca3674ca267b4dfd59b02e98 -->
+<h2>Indicador por mes.</h2>
+<p>Datos del indicador respecto al mes y año.
+Utilidad: Visualización de la pagina respecto a los datos del Indicador y Mes</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/indicadorMY/1/1/1/1?name=liquidez+corriente&amp;month=agosto&amp;year=2019&amp;token=fTUsnJgJgOBx%2BUcV9um73t2ImqqOLctq4HT7Eh%2B0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreIndicador":"liquidez corriente","mes":"agosto","a\u00f1o":2019,"token":"fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/indicadorMY/1/1/1/1");
+
+    let params = {
+            "name": "liquidez corriente",
+            "month": "agosto",
+            "year": "2019",
+            "token": "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreIndicador": "liquidez corriente",
+    "mes": "agosto",
+    "a\u00f1o": 2019,
+    "token": "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/indicadorMY/1/1/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "name" =&gt; "liquidez corriente",
+            "month" =&gt; "agosto",
+            "year" =&gt; "2019",
+            "token" =&gt; "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj",
+        ],
+    'json' =&gt; [
+            "nombreIndicador" =&gt; "liquidez corriente",
+            "mes" =&gt; "agosto",
+            "año" =&gt; "2019",
+            "token" =&gt; "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "factor": "gestion",
+    "indicator": "rotacion de cartera",
+    "mes": "agosto",
+    "mes_anterior_name": "Lulio",
+    "mes_actual": "25.01",
+    "mes_anterior": "20.05",
+    "variacion": 4.96,
+    "valor": "25.01",
+    "base_total": [
+        {
+            "maxCurrentMonth": "25.01"
+        }
+    ],
+    "proporcionla_data": [
+        {
+            "mes": "marzo",
+            "valor_año": 15.42,
+            "baseTotal_año": "29.57",
+            "porcentaje_año": 52.147446736557,
+            "mes_mes": "marzo",
+            "valor_mes_unico": "4.56",
+            "valor_mes": 18.23,
+            "baseTotal_mes": "25.01",
+            "porcentaje_mes": 72.890843662535,
+            "color_bar": "brown"
+        },
+        {
+            "mes": "agosto",
+            "valor_año": 84.58,
+            "baseTotal_año": "29.57",
+            "porcentaje_año": 286.03314169767,
+            "mes_mes": "agosto",
+            "valor_mes_unico": "25.01",
+            "valor_mes": 100,
+            "baseTotal_mes": "25.01",
+            "porcentaje_mes": 399.84006397441,
+            "color_bar": "red"
+        }
+    ],
+    "valor_interpretacion": "El resultado significa que la empresa en promedio tarda 25 dias en recuperar su cartera, en otras palabras su cartera se convierte en efectivo en menos de un mes.",
+    "data_chart": [
+        {
+            "al_indicator_id": "3",
+            "value": "100",
+            "isactive": "Y",
+            "description": "gestion",
+            "created": "2019-09-02 16:50:49",
+            "created_by": "100",
+            "updated": "2019-09-02 16:50:55",
+            "updated_by": "100",
+            "name": "rotacion de cartera",
+            "al_org_id": "1",
+            "al_user_role_id": "1",
+            "allow_monthly": "N",
+            "allow_not_compare": "Y",
+            "al_factor_id": "3",
+            "criterial": "B",
+            "interpretation_need_compare": "N",
+            "not_compare_value": null,
+            "compare_middle_point_min": null,
+            "compare_middle_point_max": null,
+            "txt_affirmative": "El resultado significa que la empresa en promedio tarda 25 dias en recuperar su cartera, en otras palabras su cartera se convierte en efectivo en menos de un mes.",
+            "txt_negative": null,
+            "graph_min_value": "0",
+            "graph_max_value": "50",
+            "graph_green_min_value": "35",
+            "graph_green_max_value": "50",
+            "graph_yellow_min_value": "25",
+            "graph_yellow_max_value": "35",
+            "graph_red_min_value": "25",
+            "graph_red_max_value": "0"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET indicadorMY/{nombre}/{mes}/{anio}/{token}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreIndicador</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>mes</td>
+<td>string</td>
+<td>required</td>
+<td>Mes de busqueda.</td>
+</tr>
+<tr>
+<td>año</td>
+<td>integer</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>required</td>
+<td>Token encrypt.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>month</td>
+<td>required</td>
+<td>Mes de busqueda respecto al indicador.</td>
+</tr>
+<tr>
+<td>year</td>
+<td>required</td>
+<td>Año de busqueda respecto al indicador.</td>
+</tr>
+<tr>
+<td>token</td>
+<td>required</td>
+<td>Token encrypt.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_5ae08a65ca3674ca267b4dfd59b02e98 -->
+<!-- START_3562ba6d9cac05857ed07381d38de248 -->
+<h2>Indicador por año.</h2>
+<p>Datos del indicador respecto al año.
+Utilidad: Visualización de la pagina respecto a los datos del Indicador respecto al Año.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/indicadorY/1/1/1?name=rotacion+de+cartera&amp;year=quia&amp;token=fTUsnJgJgOBx%2BUcV9um73t2ImqqOLctq4HT7Eh%2B0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj" \
+    -H "Content-Type: application/json" \
+    -d '{"nombreIndicador":"rotacion de cartera","a\u00f1o":2019,"token":"fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/indicadorY/1/1/1");
+
+    let params = {
+            "name": "rotacion de cartera",
+            "year": "quia",
+            "token": "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "nombreIndicador": "rotacion de cartera",
+    "a\u00f1o": 2019,
+    "token": "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/indicadorY/1/1/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "name" =&gt; "rotacion de cartera",
+            "year" =&gt; "quia",
+            "token" =&gt; "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj",
+        ],
+    'json' =&gt; [
+            "nombreIndicador" =&gt; "rotacion de cartera",
+            "año" =&gt; "2019",
+            "token" =&gt; "fTUsnJgJgOBx+UcV9um73t2ImqqOLctq4HT7Eh+0Z0Q0rhTHzlmxdsjXMGNj8PNV574UFBfZ0Z5woBTWA8G6ulvDmC9OhwmxvhvOQuUUxCmA9RYOCeiRScnpKB4agATj",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "factor": "gestion",
+    "indicator": "Indicador rotacion de cartera respecto al año 2019",
+    "mes": "",
+    "anio": "2019",
+    "año_anterior": 2018,
+    "anio_actual_value": "36.34",
+    "anio_anterior_value": "27.31",
+    "variacion": 9.03,
+    "valor": "4.56",
+    "proporcionla_data": [
+        {
+            "mes": "marzo",
+            "valor_año": 15.42,
+            "baseTotal_año": "29.57",
+            "porcentaje_año": 52.147446736557,
+            "mes_mes": "marzo",
+            "valor_mes_unico": "4.56",
+            "valor_mes": 18.23,
+            "baseTotal_mes": "25.01",
+            "porcentaje_mes": 72.890843662535,
+            "color_bar": "green"
+        },
+        {
+            "mes": "agosto",
+            "valor_año": 84.58,
+            "baseTotal_año": "29.57",
+            "porcentaje_año": 286.03314169767,
+            "mes_mes": "agosto",
+            "valor_mes_unico": "25.01",
+            "valor_mes": 100,
+            "baseTotal_mes": "25.01",
+            "porcentaje_mes": 399.84006397441,
+            "color_bar": "blue"
+        }
+    ],
+    "base_total": [
+        {
+            "total_months": "29.57"
+        }
+    ],
+    "valor_interpretacion": "El resultado significa que la empresa en promedio tarda 25 dias en recuperar su cartera, en otras palabras su cartera se convierte en efectivo en menos de un mes.",
+    "data_chart": [
+        {
+            "al_indicator_id": "3",
+            "value": "100",
+            "isactive": "Y",
+            "description": "gestion",
+            "created": "2019-09-02 16:50:49",
+            "created_by": "100",
+            "updated": "2019-09-02 16:50:55",
+            "updated_by": "100",
+            "name": "rotacion de cartera",
+            "al_org_id": "1",
+            "al_user_role_id": "1",
+            "allow_monthly": "N",
+            "allow_not_compare": "Y",
+            "al_factor_id": "3",
+            "criterial": "B",
+            "interpretation_need_compare": "N",
+            "not_compare_value": null,
+            "compare_middle_point_min": null,
+            "compare_middle_point_max": null,
+            "txt_affirmative": "El resultado significa que la empresa en promedio tarda 25 dias en recuperar su cartera, en otras palabras su cartera se convierte en efectivo en menos de un mes.",
+            "txt_negative": null,
+            "graph_min_value": "0",
+            "graph_max_value": "50",
+            "graph_green_min_value": "35",
+            "graph_green_max_value": "50",
+            "graph_yellow_min_value": "25",
+            "graph_yellow_max_value": "35",
+            "graph_red_min_value": "25",
+            "graph_red_max_value": "0"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET indicadorY/{nombre}/{anio}/{token}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nombreIndicador</td>
+<td>string</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>año</td>
+<td>integer</td>
+<td>required</td>
+<td>Año de busqueda.</td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>required</td>
+<td>Token encrypt.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>required</td>
+<td>Nombre del indicador.</td>
+</tr>
+<tr>
+<td>year</td>
+<td>required</td>
+<td>Año de busqueda respecto al indicador. Example 2019</td>
+</tr>
+<tr>
+<td>token</td>
+<td>required</td>
+<td>Token encrypt.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3562ba6d9cac05857ed07381d38de248 -->
+<h1>App Móvil</h1>
+<!-- START_d0547df0a8fb839513d092df5f28f07d -->
+<h2>Token Update App.</h2>
+<p>POST token app móvil.
+Modificar el token en el campo app_user de la tabla al_user.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenUpdate?token=fwdst48uh7tc6s8yu8sadjA&amp;idUser=1" \
+    -H "Content-Type: application/json" \
+    -d '{"token":"lasd5678cjdez","idUser":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenUpdate");
+
+    let params = {
+            "token": "fwdst48uh7tc6s8yu8sadjA",
+            "idUser": "1",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "token": "lasd5678cjdez",
+    "idUser": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("http://www.sidesoft.com.ec/app_indicadores/api/alexa/tokenUpdate", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "token" =&gt; "fwdst48uh7tc6s8yu8sadjA",
+            "idUser" =&gt; "1",
+        ],
+    'json' =&gt; [
+            "token" =&gt; "lasd5678cjdez",
+            "idUser" =&gt; "1",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/alexa/tokenUpdate</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>required</td>
+<td>Token.</td>
+</tr>
+<tr>
+<td>idUser</td>
+<td>integer</td>
+<td>required</td>
+<td>Id del usuario.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>required</td>
+<td>Token.</td>
+</tr>
+<tr>
+<td>idUser</td>
+<td>required</td>
+<td>Id del usuario.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_d0547df0a8fb839513d092df5f28f07d -->
+<!-- START_32537bc0483bd53395292518dc3aeafd -->
+<h2>Push Notifications.</h2>
+<p>Notificación del indicador en aplicación móvil.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://www.sidesoft.com.ec/app_indicadores/push/1?token=officia" \
+    -H "Content-Type: application/json" \
+    -d '{"token":"quo"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://www.sidesoft.com.ec/app_indicadores/push/1");
+
+    let params = {
+            "token": "officia",
+        };
+    Object.keys(params).forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "token": "quo"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("http://www.sidesoft.com.ec/app_indicadores/push/1", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'query' =&gt; [
+            "token" =&gt; "officia",
+        ],
+    'json' =&gt; [
+            "token" =&gt; "quo",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET push/{token}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>required</td>
+<td>Token app_movil.</td>
+</tr>
+</tbody>
+</table>
+<h4>Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>required</td>
+<td>Token app_movil.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_32537bc0483bd53395292518dc3aeafd -->
+
+<!-- END_f58213cd71dff813cecd421259a65e22 -->
+      </div>
+      <div class="dark-box">
+                        <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                              </div>
+                </div>
+    </div>
+  </body>
+</html>
